@@ -13,6 +13,7 @@
 #include <asm/uaccess.h>          /// Required for the copy to user function
 #define  DEVICE_NAME "copchar"    /// The device will appear at /dev/ebbchar using this value
 #define  CLASS_NAME  "cop"        /// The device class -- this is a character device driver
+//#define BUFFER_LENGTH 1024        /// The buffer length
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Niko Tubach\n\t\tBrandon Ashley\n\t\tLucas Rosa");
@@ -20,7 +21,7 @@ MODULE_DESCRIPTION("Task to create a Linux char. device driver set to the author
 MODULE_VERSION("4.20");
 
 static int    Major;                  		/// Stores the major device number, determined by the system
-static char   message[1024] = {0};          /// Memory for the string that is passed from userspace
+static char   message[1024] = {0}; /// Memory for the string that is passed from userspace
 static short  size_of_message;              /// Stores size of read string
 static int    numberOpens = 0;              /// Counts the number of times the device is opened
 static struct class*  copClass  = NULL; 	/// The device-driver class struct pointer
@@ -38,7 +39,7 @@ static struct file_operations fops =
    .open = dev_open,
    .read = dev_read,
    .write = dev_write,
-   .release = dev_release,
+   .release = dev_release,   
 };
 
 /// This function runs once upon initialization of driver, returns 0 upon success
@@ -96,26 +97,28 @@ static int dev_open(struct inode *inodep, struct file *filep){
 
 /// Function called whenever device sends data back to the terminal (user)
 static ssize_t dev_read(struct file *filep, char *buffer, size_t len, loff_t *offset){
-   int error_count = 0;
-   // copy_to_user has the format ( * to, *from, size) and returns 0 on success
-   error_count = copy_to_user(buffer, message, size_of_message);
-
-   if (error_count==0){            // if true then have success
-      printk(KERN_INFO "copChar: Sent %d characters to the user\n", size_of_message);
-      return (size_of_message=0);  // clear the position to the start and return 0
-   }
-   else {
-      printk(KERN_INFO "copChar: Failed to send %d characters to the user\n", error_count);
-      return -EFAULT;              // Failed -- return a bad address message (i.e. -14)
-   }
+	int error_count = 0;
+	// copy_to_user has the format ( * to, *from, size) and returns 0 on success
+	error_count = copy_to_user(buffer, message, size_of_message);
+	//Clear the buffer after sending bytes to terminal
+		
+	if (error_count==0){            // If true then copy was successful
+		printk(KERN_INFO "copChar: Sent %d characters to the user\n", size_of_message);
+		return (size_of_message=0);  // clear the position to the start and return 0
+	}
+	else {
+		printk(KERN_INFO "copChar: Failed to send %d characters to the user\n", error_count);
+		return -EFAULT;              // Failed -- return a bad address message (i.e. -14)
+	}
 }
 
 /// Function called whenever the terminal (user) sends data to the device
 static ssize_t dev_write(struct file *filep, const char *buffer, size_t len, loff_t *offset){
-   sprintf(message, "%s(%d letters)", buffer, len);   // appending received string with its length
-   size_of_message = strlen(message);                 // store the length of the stored message
-   printk(KERN_INFO "copChar: Received %d characters from the user\n", len);
-   return len;
+	
+	sprintf(message, "%s", buffer);   				// Write message to the buffer
+	size_of_message = strlen(message);          	// Store the length of the stored message
+	printk(KERN_INFO "copChar: Received %d characters from the user\n", len);
+	return len;
 }
 
 /// Function called whenever the userspace program releases the device

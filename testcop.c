@@ -10,7 +10,7 @@
 #include<fcntl.h>
 #include<string.h>
 
-#define BUFFER_LENGTH 1024               /// The buffer length 
+#define BUFFER_LENGTH 1500               /// The buffer length 
 static char receive[BUFFER_LENGTH];     /// The receive buffer
 
 int main(){
@@ -24,8 +24,8 @@ int main(){
    }
    printf("Type in a short string to send to the kernel module:\n");
    scanf("%[^\n]%*c", stringToSend);                // Read in a string (with spaces)
-   printf("Writing message to the device [%s].\n", stringToSend);
-   ret = write(fd, stringToSend, strlen(stringToSend)); // Send the string to the LKM
+   printf("Writing message to the device '%s'.\n", stringToSend);
+   ret = write(fd, stringToSend, strlen(stringToSend)); // Send the string
    if (ret < 0){
       perror("Failed to write the message to the device.");
       return errno;
@@ -36,11 +36,12 @@ int main(){
 
    printf("Reading from the device...\n");
    ret = read(fd, receive, BUFFER_LENGTH);        // Read the response from the LKM
+   
    if (ret < 0){
       perror("Failed to read the message from the device.");
       return errno;
    }
-   printf("The received message is: [%s]\n", receive);
+   printf("The received message is: '%s'\n", receive);
    printf("End of the program\n");
    return 0;
 }
