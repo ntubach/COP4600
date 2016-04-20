@@ -14,5 +14,5 @@ Uses basic init and clean as well as open, close, read and write for device.
 [Lucas Rosa]()
 
 ###TODO     
--Limit read-in amount by buffer allotted size (1024), currently allows for any size string (very large) to be read in
+-Limit read-in amount by buffer allotted size (1024), currently allows for any size string (very large) to be read in     
 -Guarentee buffer clear after printing to terminal
