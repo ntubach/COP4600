@@ -38,4 +38,5 @@
 .*.cmd
 modules.order
 Module.symvers
-./tmp_versions
+.tmp_versions/
+test
