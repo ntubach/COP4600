@@ -16,9 +16,7 @@ Uses basic init and clean as well as open, close, read and write for device.
 	-View step by step events that have been posted to the system log at any time using 'tail -f /var/log/syslog'        
 		(alternatively 'sudo tail -f /var/log/kern.log')      
 	-Congratualations, you have initialized, run, tested and removed a character device driver successfully!      
-	:boom: :boom: :boom:     
-	/play greatjob     
-	
+	:boom:
 ##References:   
 [Writing a Linux Kernel Module](http://derekmolloy.ie/writing-a-linux-kernel-module-part-2-a-character-device/)   
 [The Linux Kernel Module Programming Guide](http://www.tldp.org/LDP/lkmpg/2.6/html/index.html)
