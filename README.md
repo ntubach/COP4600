@@ -25,7 +25,7 @@ Uses basic init and clean as well as open, close, read and write for device.
 
 ##Acknowledgements:      
 [Brandon Ashley](https://github.com/teebash)    
-[Lucas Rosa]()
+[Lucas Rosa](https://github.com/lrosa007)
 
 ###TODO     
 -Limit read-in amount by buffer allotted size (1024), currently allows for any size string (very large) to be read in     
