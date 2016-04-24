@@ -11,7 +11,7 @@ Uses basic init and clean as well as open, close, read and write for device.
 * `cd cop4600`
 * Run `make`
 * Insert the module by using `sudo insmod cop.ko`
-* Test the device through the supporting file using `./test`
+* Test the device through the supporting file using `sudo ./test`
 * Follow the onscreen instructions (write a string, press enter, press enter some more, see the same string given back)
 * Remove the module by using `sudo rmmod cop`
 * View step by step events that have been posted to the system log at any time using `tail -f /var/log/syslog`
