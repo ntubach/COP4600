@@ -12,7 +12,7 @@ Uses basic init and clean as well as open, close, read and write for device.
 * Run `make`
 * Insert the module by using `sudo insmod cop.ko`     
 * View the driver init info for the major number using `sudo tail -f /var/log/syslog`
-* Use mknod for node setup 'mknod /dev/copchar c 247 x' where x is you guessing the minor number (start with 1);
+* Use mknod for node setup `mknod /dev/copchar c 247 x` where x is you guessing the minor number (start with 1);
 * Test the device through the supporting file using `sudo ./test`
 * Follow the onscreen instructions (write a string, press enter, press enter some more, see the same string given back)
 * Remove the module by using `sudo rmmod cop`
