@@ -1,8 +1,8 @@
 /**
- * By: 	Niko Tubach
- * 		Brandon Ashley
- *		Lucas Rosa 
- *	COP4600 - Assignment 5 
+ * By:  Niko Tubach
+ *      Brandon Ashley
+ *      Lucas Rosa
+ *  COP4600 - Assignment 5
 */
 #include<stdio.h>
 #include<stdlib.h>
@@ -10,7 +10,7 @@
 #include<fcntl.h>
 #include<string.h>
 
-#define BUFFER_LENGTH 1500               /// The buffer length 
+#define BUFFER_LENGTH 1500               /// The buffer length
 static char receive[BUFFER_LENGTH];     /// The receive buffer
 
 int main(){
@@ -36,7 +36,7 @@ int main(){
 
    printf("Reading from the device...\n");
    ret = read(fd, receive, BUFFER_LENGTH);        // Read the response from the LKM
-   
+
    if (ret < 0){
       perror("Failed to read the message from the device.");
       return errno;

@@ -40,3 +40,5 @@ modules.order
 Module.symvers
 .tmp_versions/
 test
+.vagrant/
+Vagrantfile
