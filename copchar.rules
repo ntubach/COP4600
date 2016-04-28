@@ -1,2 +1,0 @@
-#Rules file for the copchar device driver
-KERNEL=="copchar", SUBSYSTEM=="cop", MODE="0666"
