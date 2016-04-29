@@ -66,11 +66,8 @@ int init_module(void){
 
 /// The cleanup function, undoes init, called upon removing the driver
 void cleanup_module(void){
-	int ret = unregister_chrdev(Major, DEVICE_NAME);
-	if(ret < 0)
-		printk(KERN_ALERT "Error in unregister_chrdev: %d\n", ret);
-	else
-		printk(KERN_INFO "copChar: Goodnight young driver\n");
+	unregister_chrdev(Major, DEVICE_NAME);
+	printk(KERN_INFO "copChar: Goodnight young driver\n");
 }
 
 /// Function called whenever the device is opened
@@ -81,7 +78,7 @@ static int dev_open(struct inode *inodep, struct file *filep){
 	
 	Open++;			//Increments open counter (file is open)
 	try_module_get(THIS_MODULE);
-	printk(KERN_INFO "copChar: Device has been opened %d time(s)\n", numberOpens);
+	printk(KERN_INFO "copChar: Device has been opened %d time(s)\n", ++numberOpens);
 	return SUCCESS;
 }
 
